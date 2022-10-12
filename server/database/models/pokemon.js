@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 require('dotenv').config();
 
-const uri = "mongodb+srv://terribad:Tsugumi090294!@pokemon.owtsqjg.mongodb.net/?retryWrites=true&w=majority";
-
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const PokemonSchema = mongoose.Schema({
   id: {
