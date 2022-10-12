@@ -11,7 +11,7 @@ export default function Error() {
           <p class="text-2xl max-w-xl mx-auto mt-4 text-left lg:text-center">
             Looks like you got lost in the party.
           </p>
-          <p class=" max-w-xl mx-auto mt-8 text-left lg:text-center">
+          <p class="max-w-xl mx-auto mt-8 text-left lg:text-center">
             Either you did something wrong or I may have forgot to implement something
           </p>
           <p>
