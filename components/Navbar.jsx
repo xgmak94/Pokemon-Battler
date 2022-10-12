@@ -13,24 +13,24 @@ export default function Navbar() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <div className="btn btn-ghost normal-case text-xl">
-          <Link href="/">Home</Link>
-        </div>
+        <Link href="/">
+          <div className="btn btn-ghost normal-case text-xl">Home</div>
+        </Link>
       </div>
-      {login.loggedIn ? (
-        <div className="navbar-start">
+      <div className="navbar-start">
+        <Link href="/pokemon">
+          <div className="btn btn-ghost normal-case">Pokemon</div>
+        </Link>
+        {login.loggedIn ? (
           <div className="btn btn-ghost normal-case">
             <Link href="/teams">Teams</Link>
           </div>
-          <div className="btn btn-ghost normal-case">
-            <Link href="/pokemon">Pokemon</Link>
-          </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
       <div className="flex-none gap-2">
-        <div className="form-control">
+        {/* <div className="form-control">
           <input type="text" placeholder="Search" className="input input-bordered" />
-        </div>
+        </div> */}
         <div className="dropdown dropdown-end">
           {login.loggedIn ? (
             <>

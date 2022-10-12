@@ -8,6 +8,7 @@ import { LoginContext } from '../contexts/LoginContext';
 
 export default function Home() {
   const login = useContext(LoginContext);
+
   return (
     <>
       <div

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LoginContext } from '../../contexts/LoginContext';
@@ -6,12 +6,11 @@ import { useRouter } from 'next/router';
 
 export default function Create() {
   const router = useRouter();
-  const [accountInfo, setAccountInfo] = useState({
-    username: '',
-    password: '',
-    repassword: '',
-  });
   const login = useContext(LoginContext);
+
+  const userRef = useRef();
+  const passwordRef = useRef();
+  const repasswordRef = useRef();
 
   function handleSignup(e) {
     e.preventDefault();

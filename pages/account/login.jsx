@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LoginContext } from '../../contexts/LoginContext';
@@ -7,14 +7,17 @@ import { useRouter } from 'next/router';
 export default function Login() {
   const router = useRouter();
   const login = useContext(LoginContext);
-  const [loginInfo, setLoginInfo] = useState({
-    username: '',
-    password: '',
-  });
+
+  const usernameRef = useRef();
+  const passwordRef = useRef();
 
   function handleLogin(e) {
     e.preventDefault();
-    login.setAccountInfo(loginInfo);
+    console.log(usernameRef.current.value, passwordRef.current.value);
+    login.setAccountInfo({
+      username : usernameRef.current.value,
+      password : passwordRef.current.value,
+    })
     login.setLoggedIn(true);
     router.push('/');
   }
@@ -55,8 +58,9 @@ export default function Login() {
                   type="text"
                   placeholder="Username"
                   className="input input-bordered bg-white text-black"
-                  value={loginInfo.username}
-                  onChange={(e) => handleInfo(e, 'username')}
+                  ref={usernameRef}
+                  // value={loginInfo.username}
+                  // onChange={(e) => handleInfo(e, 'username')}
                 />
               </div>
               <div className="form-control">
@@ -67,8 +71,9 @@ export default function Login() {
                   type="password"
                   placeholder="Password"
                   className="input input-bordered bg-white text-black"
-                  value={loginInfo.password}
-                  onChange={(e) => handleInfo(e, 'password')}
+                  ref={passwordRef}
+                  // value={loginInfo.password}
+                  // onChange={(e) => handleInfo(e, 'password')}
                 />
                 <label className="label">
                   <div className="label-text-alt link link-hover">

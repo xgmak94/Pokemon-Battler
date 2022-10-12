@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import react, { useState, useEffect, useContext, createContext, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 import axios from 'axios';
 
 import Navbar from '../components/Navbar';
@@ -9,7 +10,7 @@ import Navbar from '../components/Navbar';
 import { LoginContext } from '../contexts/LoginContext';
 import { PokemonContext } from '../contexts/PokemonContext';
 
-let pokemonURL = 'https://pokeapi.co/api/v2/';
+const pokemonURL = 'https://pokeapi.co/api/v2/';
 
 const SERVER_URL = 'http://localhost:3002';
 const NUM_POKEMON = 151; //151 || 898
@@ -69,16 +70,12 @@ export default function MyApp({ Component, pageProps }) {
     getAllTypes();
   }, []);
 
-  // useEffect(() => {
-  //   // async function getAllPokemon() {
-  //   //   let info = await axios.get(`${pokemonURL}pokemon`, {params: {limit : 151}});
-  //   //   setAllPokemon(info.data.results);
-  //   // }
-
-  //   // getAllPokemon();
-  // }, [])
   return (
     <>
+      <Head>
+        <title>Pokemon battle</title>
+        <meta property="og:title" content="My page title" key="title" />
+      </Head>
       <LoginContext.Provider value={userInfo}>
         <PokemonContext.Provider value={pokemonInfo}>
           <Navbar />
