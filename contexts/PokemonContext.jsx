@@ -40,11 +40,13 @@ export function PokemonProvider({ children }) {
     async function getAllAbilities() {
       let results = await axios.get(`${SERVER_URL}/api/abilities`);
       setAllAbilities(results.data);
+      console.log(results.data);
     }
 
     async function getAllTypes() {
       let results = await axios.get(`${SERVER_URL}/api/types`);
       setAllTypes(results.data);
+      console.log(results.data);
     }
 
     getAllPokemon();
