@@ -6,7 +6,7 @@ const pokemonURL = 'https://pokeapi.co/api/v2/';
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER; // same next server
 
-const NUM_POKEMON = 151; // 151 || 898
+const NUM_POKEMON = 3; // 151 || 898
 
 export const PokemonContext = createContext();
 
