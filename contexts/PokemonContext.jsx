@@ -29,7 +29,7 @@ export function PokemonProvider({ children }) {
 
   useEffect(() => {
     async function getAllPokemon() {
-      let results = await axios.get(`${SERVER_URL}/pokemon`, {
+      let results = await axios.get(`${SERVER_URL}/api/pokemon`, {
         params: { limit: NUM_POKEMON },
       });
       setAllPokemon(results.data);
@@ -37,12 +37,12 @@ export function PokemonProvider({ children }) {
     }
 
     async function getAllAbilities() {
-      let results = await axios.get(`${SERVER_URL}/abilities`);
+      let results = await axios.get(`${SERVER_URL}/api/abilities`);
       setAllAbilities(results.data);
     }
 
     async function getAllTypes() {
-      let results = await axios.get(`${SERVER_URL}/types`);
+      let results = await axios.get(`${SERVER_URL}/api/types`);
       setAllTypes(results.data);
     }
 
