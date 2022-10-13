@@ -4,16 +4,26 @@ import { PokemonContext } from '../../../contexts/PokemonContext';
 
 import PokemonCollapse from '../../../components/PokemonCollapse';
 
-export default function Ability() {
-  const router = useRouter();
-  let abilityName = router.query.ability;
+export async function getServerSideProps(context) {
+  const { query } = context;
+  const { ability } = query;
+  return {
+    props: {
+      abilityName: ability,
+    },
+  };
+}
+
+export default function Ability({ abilityName }) {
   let pokemon = useContext(PokemonContext);
   let info =
-    pokemon.allAbilities[pokemon.allAbilities.findIndex((ability) => ability.name === abilityName)];
+    pokemon.allAbilities[
+      pokemon.allAbilities.findIndex((ability) => ability.name === abilityName)
+    ] || null;
 
   let flavorText =
     info.effect_entries[info.effect_entries.findIndex((flavor) => flavor.language.name === 'en')]
-      .effect;
+      .effect || null;
 
   let pokemonWithAbility = pokemon.allPokemon.filter((pokemon) => {
     for (let i = 0; i < pokemon.abilities.length; i++) {
@@ -25,9 +35,7 @@ export default function Ability() {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex justify-center capitalize">
-          {router.query.ability.split('-').join(' ')}
-        </div>
+        <div className="flex justify-center capitalize">{abilityName}</div>
         <div className="flex justify-center">{flavorText}</div>
         <PokemonCollapse text="Pokemon with ability" displayPokemon={pokemonWithAbility} />
       </div>

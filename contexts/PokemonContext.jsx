@@ -4,8 +4,8 @@ import axios from 'axios';
 
 const pokemonURL = 'https://pokeapi.co/api/v2/';
 
-const SERVER_URL = 'http://localhost:3002'; // local server
-
+const SERVER_URL = 'http://localhost:3000/api'; // same next server
+// const SERVER_URL = 'http://localhost:3002'; // local express server
 const NUM_POKEMON = 151; //151 || 898
 
 export const PokemonContext = createContext();
@@ -33,6 +33,7 @@ export function PokemonProvider({ children }) {
         params: { limit: NUM_POKEMON },
       });
       setAllPokemon(results.data);
+      console.log(results.data);
     }
 
     async function getAllAbilities() {

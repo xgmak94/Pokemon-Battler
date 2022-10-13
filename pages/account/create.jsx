@@ -23,7 +23,7 @@ export default function Create() {
       <div
         className="hero min-h-screen bg-base-200"
         style={{
-          backgroundImage: `url("https://assets.pokemon.com//assets/cms2/img/misc/virtual-backgrounds/sword-shield/pokemon-in-the-wild.png")`,
+          backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKGROUND})`,
         }}
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
@@ -63,7 +63,9 @@ export default function Create() {
                 />
               </div>
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary capitalize">Sign up</button>
+                <button type="submit" className="btn btn-primary capitalize">
+                  Sign up
+                </button>
               </div>
             </div>
           </form>

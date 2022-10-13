@@ -13,11 +13,11 @@ export default function Login() {
 
   function handleLogin(e) {
     e.preventDefault();
-    console.log(usernameRef.current.value, passwordRef.current.value);
+
     login.setAccountInfo({
-      username : usernameRef.current.value,
-      password : passwordRef.current.value,
-    })
+      username: usernameRef.current.value,
+      password: passwordRef.current.value,
+    });
     login.setLoggedIn(true);
     router.push('/');
   }
@@ -97,7 +97,9 @@ export default function Login() {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary capitalize">Login</button>
+                <button type="submit" className="btn btn-primary capitalize">
+                  Login
+                </button>
               </div>
               <div className="label-text-alt link link-hover">
                 <Link href="/account/create">Not a member? Sign up</Link>

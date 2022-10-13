@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function Forgot() {
-  return (
-    <div>Thats too bad man</div>
-  )
+  return <div>Thats too bad man</div>;
 }

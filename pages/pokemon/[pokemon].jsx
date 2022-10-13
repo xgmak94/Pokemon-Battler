@@ -11,31 +11,41 @@ import MoveCollapse from '../../components/PokemonInformation/moves/MoveCollapse
 
 import axios from 'axios';
 
-export default function Pokemon() {
+export async function getServerSideProps(context) {
+  const { query } = context;
+  const { pokemon } = query;
+
+  return {
+    props: {
+      pokemonName: pokemon,
+    },
+  };
+}
+
+export default function Pokemon({ pokemonName }) {
   const [moveData, setMoveData] = useState([]);
   const pokemon = useContext(PokemonContext);
   const router = useRouter();
-  const pokemonName = router.query.pokemon;
 
   let info = pokemon.allPokemon[pokemon.allPokemon.findIndex((mon) => mon.name === pokemonName)];
 
-  useEffect(() => {
-    let moveInfo = info.moves.map(async (move) => {
-      return await axios.get(move.move.url);
-    });
+  // useEffect(() => {
+  //   let moveInfo = info.moves.map(async (move) => {
+  //     return await axios.get(move.move.url);
+  //   });
 
-    let movesArr = [];
-    Promise.all(moveInfo).then((ret) => {
-      ret.forEach((res) => {
-        movesArr.push(res.data);
-      });
-      movesArr.sort((a, b) => {
-        return a.name.localeCompare(b.name);
-      });
-      setMoveData(movesArr);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   let movesArr = [];
+  //   Promise.all(moveInfo).then((ret) => {
+  //     ret.forEach((res) => {
+  //       movesArr.push(res.data);
+  //     });
+  //     movesArr.sort((a, b) => {
+  //       return a.name.localeCompare(b.name);
+  //     });
+  //     setMoveData(movesArr);
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>
@@ -55,7 +65,7 @@ export default function Pokemon() {
           </h2>
           <TypeContainer types={info.types} />
           <AbilityContainer abilities={info.abilities} />
-          <MoveCollapse text="See moves" moveData={moveData} setMoveData={setMoveData} />
+          {/* <MoveCollapse text="See moves" moveData={moveData} setMoveData={setMoveData} /> */}
         </div>
       </div>
     </>

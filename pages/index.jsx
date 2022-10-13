@@ -14,7 +14,7 @@ export default function Home() {
       <div
         className="hero min-h-screen"
         style={{
-          backgroundImage: `url("https://assets.pokemon.com//assets/cms2/img/misc/virtual-backgrounds/sword-shield/pokemon-in-the-wild.png")`,
+          backgroundImage: `url(${process.env.NEXT_PUBLIC_BACKGROUND})`,
         }}
       >
         {login.loggedIn ? null : (

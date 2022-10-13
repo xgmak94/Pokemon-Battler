@@ -22,9 +22,9 @@ export default function Navbar() {
           <div className="btn btn-ghost normal-case">Pokemon</div>
         </Link>
         {login.loggedIn ? (
-          <div className="btn btn-ghost normal-case">
-            <Link href="/teams">Teams</Link>
-          </div>
+          <Link href="/teams">
+            <div className="btn btn-ghost normal-case">Teams</div>
+          </Link>
         ) : null}
       </div>
       <div className="flex-none gap-2">
@@ -47,9 +47,9 @@ export default function Navbar() {
               </ul>
             </>
           ) : (
-            <div className="btn btn-ghost normal-case">
-              <Link href="/account/login">Login</Link>
-            </div>
+            <Link href="/account/login">
+              <div className="btn btn-ghost normal-case">Login</div>
+            </Link>
           )}
         </div>
       </div>

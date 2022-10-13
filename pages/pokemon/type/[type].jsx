@@ -21,8 +21,8 @@ export default function Type() {
   let info = pokemon.allTypes[pokemon.allTypes.findIndex((type) => type.name === typeName)];
 
   let pokemonWithType = pokemon.allPokemon.filter((pokemon, idx) => {
-    for (let i = 0; i < pokemon.types.length; i++) {
-      if (pokemon.types[i].type.name === typeName) {
+    for(let type of pokemon.types) {
+      if(type.type.name === typeName) {
         return true;
       }
     }
