@@ -5,9 +5,12 @@ import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 
 import { LoginContext } from '../contexts/LoginContext';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
   const login = useContext(LoginContext);
+
+  const data = useSession();
 
   return (
     <>

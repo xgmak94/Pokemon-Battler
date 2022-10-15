@@ -22,16 +22,6 @@ export default function Login() {
     router.push('/');
   }
 
-  function handleInfo(e, param) {
-    setLoginInfo((prev) => {
-      let obj = {
-        ...prev,
-      };
-      obj[param] = e.target.value;
-      return obj;
-    });
-  }
-
   return (
     <>
       <div
@@ -59,8 +49,6 @@ export default function Login() {
                   placeholder="Username"
                   className="input input-bordered bg-white text-black"
                   ref={usernameRef}
-                  // value={loginInfo.username}
-                  // onChange={(e) => handleInfo(e, 'username')}
                 />
               </div>
               <div className="form-control">
@@ -72,30 +60,12 @@ export default function Login() {
                   placeholder="Password"
                   className="input input-bordered bg-white text-black"
                   ref={passwordRef}
-                  // value={loginInfo.password}
-                  // onChange={(e) => handleInfo(e, 'password')}
                 />
-                <label className="label">
-                  <div className="label-text-alt link link-hover">
-                    <div htmlFor="my-modal-3" className="capitalize">
-                      Forgot Password?
-                    </div>
-                    <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-                    <div className="modal">
-                      <div className="modal-box relative">
-                        <label
-                          htmlFor="my-modal-3"
-                          className="btn btn-sm btn-circle absolute right-2 top-2"
-                        >
-                          ✕
-                        </label>
-                        <h3 className="text-lg font-bold">Iono what to do about that</h3>
-                        <p className="py-4">That&apos;s too bad man</p>
-                      </div>
-                    </div>
-                  </div>
-                </label>
               </div>
+              <div className="label-text-alt link link-hover">Forgot Password?</div>
+              <Link href="/api/auth/signin">
+                <div className="link link-hover">Sign in with something else</div>
+              </Link>
               <div className="form-control mt-6">
                 <button type="submit" className="btn btn-primary capitalize">
                   Login

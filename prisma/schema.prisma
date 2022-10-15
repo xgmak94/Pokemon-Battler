@@ -1,0 +1,473 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type AbilitiesEffectEntries {
+  effect       String
+  language     AbilitiesEffectEntriesLanguage
+  short_effect String
+}
+
+type AbilitiesEffectEntriesLanguage {
+  name String
+  url  String
+}
+
+type AbilitiesNames {
+  language AbilitiesNamesLanguage
+  name     String
+}
+
+type AbilitiesNamesLanguage {
+  name String
+  url  String
+}
+
+type AbilitiesPokemon {
+  is_hidden Boolean
+  pokemon   AbilitiesPokemonPokemon
+  slot      Int
+}
+
+type AbilitiesPokemonPokemon {
+  name String
+  url  String
+}
+
+type PokemonsAbilities {
+  ability   PokemonsAbilitiesAbility
+  is_hidden Boolean
+  slot      Int
+}
+
+type PokemonsAbilitiesAbility {
+  name String
+  url  String
+}
+
+type PokemonsForms {
+  name String
+  url  String
+}
+
+type PokemonsGameIndices {
+  game_index Int
+  version    PokemonsGameIndicesVersion
+}
+
+type PokemonsGameIndicesVersion {
+  name String
+  url  String
+}
+
+type PokemonsHeldItems {
+  item            PokemonsHeldItemsItem
+  version_details PokemonsHeldItemsVersionDetails[]
+}
+
+type PokemonsHeldItemsItem {
+  name String
+  url  String
+}
+
+type PokemonsHeldItemsVersionDetails {
+  rarity  Int
+  version PokemonsHeldItemsVersionDetailsVersion
+}
+
+type PokemonsHeldItemsVersionDetailsVersion {
+  name String
+  url  String
+}
+
+type PokemonsMoves {
+  move                  PokemonsMovesMove
+  version_group_details PokemonsMovesVersionGroupDetails[]
+}
+
+type PokemonsMovesMove {
+  name String
+  url  String
+}
+
+type PokemonsMovesVersionGroupDetails {
+  level_learned_at  Int
+  move_learn_method PokemonsMovesVersionGroupDetailsMoveLearnMethod
+  version_group     PokemonsMovesVersionGroupDetailsVersionGroup
+}
+
+type PokemonsMovesVersionGroupDetailsMoveLearnMethod {
+  name String
+  url  String
+}
+
+type PokemonsMovesVersionGroupDetailsVersionGroup {
+  name String
+  url  String
+}
+
+type PokemonsSprites {
+  back_default       String?
+  back_female        String?
+  back_shiny         String?
+  back_shiny_female  String?
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+  other              PokemonsSpritesOther
+  versions           PokemonsSpritesVersions
+}
+
+type PokemonsSpritesOther {
+  dream_world      PokemonsSpritesOtherDreamWorld
+  home             PokemonsSpritesOtherHome
+  official_artwork PokemonsSpritesOtherOfficialArtwork @map("official-artwork")
+}
+
+type PokemonsSpritesOtherDreamWorld {
+  front_default String?
+  front_female  String?
+}
+
+type PokemonsSpritesOtherHome {
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesOtherOfficialArtwork {
+  front_default String?
+}
+
+type PokemonsSpritesVersions {
+  generation_i    PokemonsSpritesVersionsGenerationI    @map("generation-i")
+  generation_ii   PokemonsSpritesVersionsGenerationIi   @map("generation-ii")
+  generation_iii  PokemonsSpritesVersionsGenerationIii  @map("generation-iii")
+  generation_iv   PokemonsSpritesVersionsGenerationIv   @map("generation-iv")
+  generation_v    PokemonsSpritesVersionsGenerationV    @map("generation-v")
+  generation_vi   PokemonsSpritesVersionsGenerationVi   @map("generation-vi")
+  generation_vii  PokemonsSpritesVersionsGenerationVii  @map("generation-vii")
+  generation_viii PokemonsSpritesVersionsGenerationViii @map("generation-viii")
+}
+
+type PokemonsSpritesVersionsGenerationI {
+  red_blue PokemonsSpritesVersionsGenerationIRedBlue @map("red-blue")
+  yellow   PokemonsSpritesVersionsGenerationIYellow
+}
+
+type PokemonsSpritesVersionsGenerationIRedBlue {
+  back_default      String?
+  back_gray         String?
+  back_transparent  String?
+  front_default     String?
+  front_gray        String?
+  front_transparent String?
+}
+
+type PokemonsSpritesVersionsGenerationIYellow {
+  back_default      String?
+  back_gray         String?
+  back_transparent  String?
+  front_default     String?
+  front_gray        String?
+  front_transparent String?
+}
+
+type PokemonsSpritesVersionsGenerationIi {
+  crystal PokemonsSpritesVersionsGenerationIiCrystal
+  gold    PokemonsSpritesVersionsGenerationIiGold
+  silver  PokemonsSpritesVersionsGenerationIiSilver
+}
+
+type PokemonsSpritesVersionsGenerationIiCrystal {
+  back_default            String?
+  back_shiny              String?
+  back_shiny_transparent  String?
+  back_transparent        String?
+  front_default           String?
+  front_shiny             String?
+  front_shiny_transparent String?
+  front_transparent       String?
+}
+
+type PokemonsSpritesVersionsGenerationIiGold {
+  back_default      String?
+  back_shiny        String?
+  front_default     String?
+  front_shiny       String?
+  front_transparent String?
+}
+
+type PokemonsSpritesVersionsGenerationIiSilver {
+  back_default      String?
+  back_shiny        String?
+  front_default     String?
+  front_shiny       String?
+  front_transparent String?
+}
+
+type PokemonsSpritesVersionsGenerationIii {
+  emerald           PokemonsSpritesVersionsGenerationIiiEmerald
+  firered_leafgreen PokemonsSpritesVersionsGenerationIiiFireredLeafgreen @map("firered-leafgreen")
+  ruby_sapphire     PokemonsSpritesVersionsGenerationIiiRubySapphire     @map("ruby-sapphire")
+}
+
+type PokemonsSpritesVersionsGenerationIiiEmerald {
+  front_default String?
+  front_shiny   String?
+}
+
+type PokemonsSpritesVersionsGenerationIiiFireredLeafgreen {
+  back_default  String?
+  back_shiny    String?
+  front_default String?
+  front_shiny   String?
+}
+
+type PokemonsSpritesVersionsGenerationIiiRubySapphire {
+  back_default  String?
+  back_shiny    String?
+  front_default String?
+  front_shiny   String?
+}
+
+type PokemonsSpritesVersionsGenerationIv {
+  diamond_pearl        PokemonsSpritesVersionsGenerationIvDiamondPearl        @map("diamond-pearl")
+  heartgold_soulsilver PokemonsSpritesVersionsGenerationIvHeartgoldSoulsilver @map("heartgold-soulsilver")
+  platinum             PokemonsSpritesVersionsGenerationIvPlatinum
+}
+
+type PokemonsSpritesVersionsGenerationIvDiamondPearl {
+  back_default       String?
+  back_female        String?
+  back_shiny         String?
+  back_shiny_female  String?
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationIvHeartgoldSoulsilver {
+  back_default       String?
+  back_female        String?
+  back_shiny         String?
+  back_shiny_female  String?
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationIvPlatinum {
+  back_default       String?
+  back_female        String?
+  back_shiny         String?
+  back_shiny_female  String?
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationV {
+  black_white PokemonsSpritesVersionsGenerationVBlackWhite @map("black-white")
+}
+
+type PokemonsSpritesVersionsGenerationVBlackWhite {
+  animated           PokemonsSpritesVersionsGenerationVBlackWhiteAnimated
+  back_default       String?
+  back_female        String?
+  back_shiny         String?
+  back_shiny_female  String?
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationVBlackWhiteAnimated {
+  back_default       String?
+  back_female        String?
+  back_shiny         String?
+  back_shiny_female  String?
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationVi {
+  omegaruby_alphasapphire PokemonsSpritesVersionsGenerationViOmegarubyAlphasapphire @map("omegaruby-alphasapphire")
+  x_y                     PokemonsSpritesVersionsGenerationViXY                     @map("x-y")
+}
+
+type PokemonsSpritesVersionsGenerationViOmegarubyAlphasapphire {
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationViXY {
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationVii {
+  icons                PokemonsSpritesVersionsGenerationViiIcons
+  ultra_sun_ultra_moon PokemonsSpritesVersionsGenerationViiUltraSunUltraMoon @map("ultra-sun-ultra-moon")
+}
+
+type PokemonsSpritesVersionsGenerationViiIcons {
+  front_default String?
+  front_female  String?
+}
+
+type PokemonsSpritesVersionsGenerationViiUltraSunUltraMoon {
+  front_default      String?
+  front_female       String?
+  front_shiny        String?
+  front_shiny_female String?
+}
+
+type PokemonsSpritesVersionsGenerationViii {
+  icons PokemonsSpritesVersionsGenerationViiiIcons
+}
+
+type PokemonsSpritesVersionsGenerationViiiIcons {
+  front_default String?
+  front_female  String?
+}
+
+type PokemonsStats {
+  base_stat Int
+  effort    Int
+  stat      PokemonsStatsStat
+}
+
+type PokemonsStatsStat {
+  name String
+  url  String
+}
+
+type PokemonsTypes {
+  slot Int
+  type PokemonsTypesType
+}
+
+type PokemonsTypesType {
+  name String
+  url  String
+}
+
+type PokemonsVarieties {
+  is_default Boolean
+  pokemon    PokemonsVarietiesPokemon
+}
+
+type PokemonsVarietiesPokemon {
+  name String
+  url  String
+}
+
+type TypesDamageRelations {
+  double_damage_from TypesDamageRelationsDoubleDamageFrom[]
+  double_damage_to   TypesDamageRelationsDoubleDamageTo[]
+  half_damage_from   TypesDamageRelationsHalfDamageFrom[]
+  half_damage_to     TypesDamageRelationsHalfDamageTo[]
+  no_damage_from     TypesDamageRelationsNoDamageFrom[]
+  no_damage_to       TypesDamageRelationsNoDamageTo[]
+}
+
+type TypesDamageRelationsDoubleDamageFrom {
+  name String
+  url  String
+}
+
+type TypesDamageRelationsDoubleDamageTo {
+  name String
+  url  String
+}
+
+type TypesDamageRelationsHalfDamageFrom {
+  name String
+  url  String
+}
+
+type TypesDamageRelationsHalfDamageTo {
+  name String
+  url  String
+}
+
+type TypesDamageRelationsNoDamageFrom {
+  name String
+  url  String
+}
+
+type TypesDamageRelationsNoDamageTo {
+  name String
+  url  String
+}
+
+type TypesMoves {
+  name String
+  url  String
+}
+
+type TypesPokemon {
+  pokemon TypesPokemonPokemon
+  slot    Int
+}
+
+type TypesPokemonPokemon {
+  name String
+  url  String
+}
+
+model abilities {
+  id             String                   @id @default(auto()) @map("_id") @db.ObjectId
+  v              Int                      @map("__v")
+  effect_entries AbilitiesEffectEntries[]
+  id_            Int                      @map("id")
+  name           String?
+  names          AbilitiesNames[]
+  pokemon        AbilitiesPokemon[]
+}
+
+model pokemons {
+  id           String                @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int                   @map("__v")
+  abilities    PokemonsAbilities[]
+  forms        PokemonsForms[]
+  game_indices PokemonsGameIndices[]
+  height       Int[]
+  held_items   PokemonsHeldItems[]
+  id_          Int                   @map("id")
+  is_default   Boolean
+  moves        PokemonsMoves[]
+  name         String
+  sprites      PokemonsSprites
+  stats        PokemonsStats[]
+  types        PokemonsTypes[]
+  varieties    PokemonsVarieties[]
+}
+
+model types {
+  id               String               @id @default(auto()) @map("_id") @db.ObjectId
+  v                Int                  @map("__v")
+  damage_relations TypesDamageRelations
+  id_              Int                  @map("id")
+  moves            TypesMoves[]
+  name             String
+  pokemon          TypesPokemon[]
+}

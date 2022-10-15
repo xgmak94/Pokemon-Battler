@@ -1,25 +1,35 @@
-import connectMongo from '../../utils/ConnectMongo';
 import PokemonModel from '../../models/PokemonModel';
+import connectMongo from '../../utils/ConnectMongo';
+
+import prisma from '../../utils/ConnectPrisma';
 
 export const config = {
   api: {
-    responseLimit: '8mb',
+    responseLimit: '12mb',
   },
 };
 
 export default async function handler(req, res) {
-  await connectMongo();
-
   if (req.method === 'GET') {
-    let limit = req.query.limit || 151;
-    let offset = req.query.offset || 0;
+    const pokemon = await prisma.pokemons.findMany({ take: parseInt(req.query.limit) });
 
-    let info = await PokemonModel.find({}, 'name id abilities sprites stats types')
-      .sort({ id: 1 })
-      .skip(offset)
-      .limit(limit)
-      .exec();
-
-    res.status(200).send(info);
+    res.send(pokemon);
   }
 }
+
+// export default async function handler(req, res) {
+//   await connectMongo();
+
+//   if (req.method === 'GET') {
+//     let limit = req.query.limit || 151;
+//     let offset = req.query.offset || 0;
+
+//     let info = await PokemonModel.find({}, 'name id abilities sprites stats types')
+//       .sort({ id: 1 })
+//       .skip(offset)
+//       .limit(limit)
+//       .exec();
+
+//     res.status(200).send(info);
+//   }
+// }

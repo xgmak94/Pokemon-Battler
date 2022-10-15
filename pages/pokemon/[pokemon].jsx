@@ -10,49 +10,38 @@ import AbilityContainer from '../../components/PokemonInformation/abilities/Abil
 import MoveCollapse from '../../components/PokemonInformation/moves/MoveCollapse';
 
 import axios from 'axios';
+import prisma from './../../utils/ConnectPrisma.js';
 
 export async function getServerSideProps(context) {
-  const { query } = context;
-  const { pokemon } = query;
+  const pokemon = await prisma.pokemons.findFirst({
+    where: {
+      name: context.query.pokemon,
+    },
+    select: {
+      id_: true,
+      abilities: true,
+      name: true,
+      types: true,
+      sprites: true,
+      moves: true,
+    },
+  });
 
   return {
     props: {
-      pokemonName: pokemon,
+      pokemon,
     },
   };
 }
 
-export default function Pokemon({ pokemonName }) {
-  const [moveData, setMoveData] = useState([]);
-  const pokemon = useContext(PokemonContext);
-  const router = useRouter();
-
-  let info = pokemon.allPokemon[pokemon.allPokemon.findIndex((mon) => mon.name === pokemonName)];
-
-  // useEffect(() => {
-  //   let moveInfo = info.moves.map(async (move) => {
-  //     return await axios.get(move.move.url);
-  //   });
-
-  //   let movesArr = [];
-  //   Promise.all(moveInfo).then((ret) => {
-  //     ret.forEach((res) => {
-  //       movesArr.push(res.data);
-  //     });
-  //     movesArr.sort((a, b) => {
-  //       return a.name.localeCompare(b.name);
-  //     });
-  //     setMoveData(movesArr);
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+export default function Pokemon({ pokemon }) {
 
   return (
     <>
       <div className="card flex flex-col justify-center">
         <div className="flex justify-center">
           <Image
-            src={info.sprites.other['official-artwork'].front_default}
+            src={pokemon.sprites.other['official_artwork'].front_default}
             alt="Pokemon"
             width={200}
             height={200}
@@ -60,12 +49,11 @@ export default function Pokemon({ pokemonName }) {
         </div>
         <div>
           <h2 className="card-title capitalize justify-center">
-            <div>#{info.id}</div>
-            <div>{info.name.split('-').join(' ')}</div>
+            <div>#{pokemon.id_}</div>
+            <div>{pokemon.name.split('-').join(' ')}</div>
           </h2>
-          <TypeContainer types={info.types} />
-          <AbilityContainer abilities={info.abilities} />
-          {/* <MoveCollapse text="See moves" moveData={moveData} setMoveData={setMoveData} /> */}
+          <TypeContainer types={pokemon.types} />
+          <AbilityContainer abilities={pokemon.abilities} />
         </div>
       </div>
     </>

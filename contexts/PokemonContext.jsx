@@ -5,8 +5,6 @@ import axios from 'axios';
 const pokemonURL = 'https://pokeapi.co/api/v2/';
 
 const SERVER_URL = process.env.VERCEL_URL || process.env.NEXT_PUBLIC_SERVER; // same next server
-
-
 const NUM_POKEMON = 151; // 151 || 898
 
 export const PokemonContext = createContext();
@@ -34,25 +32,24 @@ export function PokemonProvider({ children }) {
         params: { limit: NUM_POKEMON },
       });
       setAllPokemon(results.data);
-      console.log(results.data);
     }
 
     async function getAllAbilities() {
       let results = await axios.get(`${SERVER_URL}/api/abilities`);
       setAllAbilities(results.data);
-      console.log(results.data);
     }
 
     async function getAllTypes() {
       let results = await axios.get(`${SERVER_URL}/api/types`);
       setAllTypes(results.data);
-      console.log(results.data);
     }
 
     getAllPokemon();
     getAllAbilities();
     getAllTypes();
   }, []);
+
+  // console.log(allPokemon, allAbilities, allTypes);
 
   return (
     <>
