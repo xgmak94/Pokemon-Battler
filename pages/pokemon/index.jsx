@@ -43,7 +43,6 @@ export async function getServerSideProps({ req }) {
 }
 
 export default function Pokemon({ pokemon }) {
-  console.log(pokemon);
   const [search, setSearch] = useState();
 
   const filteredPokemon = pokemon.filter((poke) => {

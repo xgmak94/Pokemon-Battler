@@ -14,14 +14,14 @@ export default function MyApp({ Component, pageProps, session, pokemon }) {
         <title>Pokemon battle</title>
         <meta property="og:title" content="My page title" key="title" />
       </Head>
-      <SessionProvider session={session}>
+      {/* <SessionProvider session={session}> */}
         <LoginProvider>
           {/* <PokemonProvider> */}
           <Navbar />
           <Component {...pageProps} />
           {/* </PokemonProvider> */}
         </LoginProvider>
-      </SessionProvider>
+      {/* </SessionProvider> */}
     </>
   );
 }
