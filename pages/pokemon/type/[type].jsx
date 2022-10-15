@@ -12,52 +12,52 @@ import prisma from './../../../utils/ConnectPrisma.js';
 
 export async function getServerSideProps(context) {
   const type = await prisma.types.findFirst({
+    orderBy: {
+      id_: 'asc',
+    },
     where: {
       name: context.query.type,
     },
   });
 
+  const pokemonWithType = await prisma.pokemons.findMany({
+    orderBy: {
+      id_: 'asc',
+    },
+    where: {
+      name: {
+        in: type.pokemon.map((poke) => poke.pokemon.name),
+      },
+    },
+    select: {
+      id_: true,
+      name: true,
+      types: true,
+      sprites: {
+        select: {
+          other: {
+            select: {
+              official_artwork: {
+                select: {
+                  front_default: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
   return {
     props: {
-      type
-    }
-  }
+      type,
+      pokemonWithType,
+    },
+  };
 }
-export default function Type({type}) {
-  console.log(type);
-  // const [moveData, setMoveData] = useState([]);
-  // const router = useRouter();
-  // let typeName = router.query.type;
-  // let pokemon = useContext(PokemonContext);
 
-  // let info = pokemon.allTypes[pokemon.allTypes.findIndex((type) => type.name === typeName)];
-
-  // let pokemonWithType = pokemon.allPokemon.filter((pokemon, idx) => {
-  //   for (let type of pokemon.types) {
-  //     if (type.type.name === typeName) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // });
-
-  // useEffect(() => {
-  //   let moveInfo = info.moves.map(async (move) => {
-  //     return await axios.get(move.url);
-  //   });
-
-  //   let movesArr = [];
-  //   Promise.all(moveInfo).then((ret) => {
-  //     ret.forEach((res) => {
-  //       movesArr.push(res.data);
-  //     });
-  //     movesArr.sort((a, b) => {
-  //       return a.name.localeCompare(b.name);
-  //     });
-  //     setMoveData(movesArr);
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+export default function Type({ type, pokemonWithType, movesArr }) {
 
   return (
     <>
@@ -65,28 +65,9 @@ export default function Type({type}) {
         <div className="flex justify-center my-3">
           <TypeLabel type={type.name} />
         </div>
-        {/* <MoveCollapse text="See moves" moveData={moveData} setMoveData={setMoveData} />
-        <PokemonCollapse text="See Pokemon" displayPokemon={pokemonWithType} /> */}
+        {/* <MoveCollapse text="See moves" moveData={moveData} setMoveData={setMoveData} /> */}
+        <PokemonCollapse text="See Pokemon" displayPokemon={pokemonWithType} />
       </div>
     </>
-  );
-}
-
-function ArrowUpDown() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-      />
-    </svg>
   );
 }

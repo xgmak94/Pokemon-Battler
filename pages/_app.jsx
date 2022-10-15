@@ -16,10 +16,10 @@ export default function MyApp({ Component, pageProps, session, pokemon }) {
       </Head>
       <SessionProvider session={session}>
         <LoginProvider>
-          <PokemonProvider>
-            <Navbar />
-            <Component {...pageProps} />
-          </PokemonProvider>
+          {/* <PokemonProvider> */}
+          <Navbar />
+          <Component {...pageProps} />
+          {/* </PokemonProvider> */}
         </LoginProvider>
       </SessionProvider>
     </>

@@ -19,7 +19,19 @@ export async function getServerSideProps({ req }) {
       abilities: true,
       name: true,
       types: true,
-      sprites: true,
+      sprites: {
+        select: {
+          other: {
+            select: {
+              official_artwork: {
+                select: {
+                  front_default: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
 
@@ -31,6 +43,7 @@ export async function getServerSideProps({ req }) {
 }
 
 export default function Pokemon({ pokemon }) {
+  console.log(pokemon);
   const [search, setSearch] = useState();
 
   const filteredPokemon = pokemon.filter((poke) => {

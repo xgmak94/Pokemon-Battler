@@ -14,6 +14,9 @@ import prisma from './../../utils/ConnectPrisma.js';
 
 export async function getServerSideProps(context) {
   const pokemon = await prisma.pokemons.findFirst({
+    orderBy: {
+      id_: 'asc',
+    },
     where: {
       name: context.query.pokemon,
     },
@@ -35,7 +38,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function Pokemon({ pokemon }) {
-
   return (
     <>
       <div className="card flex flex-col justify-center">

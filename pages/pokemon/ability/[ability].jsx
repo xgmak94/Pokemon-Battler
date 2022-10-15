@@ -11,14 +11,45 @@ export async function getServerSideProps(context) {
       name: context.query.ability,
     },
   });
+
+  const pokemonWithAbility = await prisma.pokemons.findMany({
+    orderBy: {
+      id_: 'asc',
+    },
+    where: {
+      name: {
+        in: ability.pokemon.map((poke) => poke.pokemon.name),
+      },
+    },
+    select: {
+      id_: true,
+      name: true,
+      types: true,
+      sprites: {
+        select: {
+          other: {
+            select: {
+              official_artwork: {
+                select: {
+                  front_default: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
   return {
     props: {
       ability,
+      pokemonWithAbility,
     },
   };
 }
 
-export default function Ability({ ability }) {
+export default function Ability({ ability, pokemonWithAbility }) {
   let flavorText = ability.effect_entries.find((entry) => entry.language.name === 'en');
 
   return (
@@ -26,7 +57,7 @@ export default function Ability({ ability }) {
       <div className="flex flex-col justify-center m-3">
         <div className="flex justify-center capitalize">{ability.name}</div>
         <div className="flex justify-center">{flavorText.effect}</div>
-        {/* <PokemonCollapse text="Pokemon with ability" displayPokemon={pokemonWithAbility} /> */}
+        <PokemonCollapse text="Pokemon with ability" displayPokemon={pokemonWithAbility} />
       </div>
     </>
   );
