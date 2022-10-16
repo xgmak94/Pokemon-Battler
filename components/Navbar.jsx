@@ -18,9 +18,25 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="navbar-start">
-        <Link href="/pokemon">
-          <div className="btn btn-ghost normal-case">Pokemon</div>
-        </Link>
+        <div className="dropdown dropdown-hover">
+          <label tabIndex={0} className="btn btn-ghost normal-case">
+            Information
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <Link href="/pokemon">
+              <button className="btn btn-ghost normal-case">Pokemon</button>
+            </Link>
+            <Link href="/pokemon/abilities">
+              <button className="btn btn-ghost normal-case">Abilities</button>
+            </Link>
+            <Link href="/pokemon/types">
+              <button className="btn btn-ghost normal-case">Types</button>
+            </Link>
+          </ul>
+        </div>
         {login.loggedIn ? (
           <Link href="/teams">
             <div className="btn btn-ghost normal-case">Teams</div>
