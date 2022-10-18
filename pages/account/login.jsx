@@ -30,35 +30,37 @@ export default function Login() {
           backgroundImage: `url("https://assets.pokemon.com//assets/cms2/img/misc/virtual-backgrounds/sword-shield/pokemon-in-the-wild.png")`,
         }}
       >
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="m-3 text-center lg:text-left">
+        <div className="hero-content flex-col">
+          <div className="m-3 text-center">
             <h1 className="text-5xl font-bold">Login now!</h1>
             <p className="py-6">Create an account to start battling.</p>
           </div>
           <form
-            className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+            className="card flex-shrink-0 w-full max-w-sm shadow-2xl dark:bg-slate-800 bg-slate-300"
             onSubmit={(e) => handleLogin(e)}
           >
             <div className="card-body">
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Username</span>
+                <label htmlFor="username" className="label label-text">
+                  Username
                 </label>
                 <input
                   type="text"
+                  id="username"
                   placeholder="Username"
-                  className="input input-bordered bg-white text-black"
+                  className="input input-bordered"
                   ref={usernameRef}
                 />
               </div>
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
+                <label htmlFor="password" className="label label-text">
+                  Password
                 </label>
                 <input
                   type="password"
+                  id="password"
                   placeholder="Password"
-                  className="input input-bordered bg-white text-black"
+                  className="input input-bordered"
                   ref={passwordRef}
                 />
               </div>

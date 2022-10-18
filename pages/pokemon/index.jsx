@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import Select from 'react-select/';
 
 import DisplayPokemon from '../../components/DisplayPokemon';
 
@@ -44,13 +45,33 @@ export async function getServerSideProps({ req }) {
 
 export default function Pokemon({ pokemon }) {
   const [search, setSearch] = useState();
+  const [nameFilter, setNameFilter] = useState('');
 
   const filteredPokemon = pokemon.filter((poke) => {
-    return true;
+    if (poke.name.includes(nameFilter)) {
+      return true;
+    }
+    return false;
   });
+
+  function handleChange(e) {
+    if (e.target.value.length >= 2) {
+      setNameFilter(e.target.value);
+    } else {
+      setNameFilter('');
+    }
+  }
 
   return (
     <>
+      <div className="flex justify-center m-3">
+        <input
+          className="h-1/6 rounded-full text-center text-4xl"
+          type="text"
+          placeholder="Search for a pokemon..."
+          onChange={(e) => handleChange(e)}
+        />
+      </div>
       <DisplayPokemon displayPokemon={filteredPokemon} />
     </>
   );

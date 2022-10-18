@@ -52,10 +52,11 @@ export async function getServerSideProps(context) {
 export default function Ability({ ability, pokemonWithAbility }) {
   let flavorText = ability.effect_entries.find((entry) => entry.language.name === 'en') || `Cannot find data on ${ability.name}`;
 
+  console.log(ability);
   return (
     <>
       <div className="flex flex-col justify-center m-3">
-        <div className="flex justify-center capitalize">{ability.name}</div>
+        <div className="flex justify-center capitalize">{ability.name.split("-").join(" ")}</div>
         <div className="flex justify-center">{flavorText.effect || flavorText}</div>
         <PokemonCollapse text="Pokemon with ability" displayPokemon={pokemonWithAbility} />
       </div>

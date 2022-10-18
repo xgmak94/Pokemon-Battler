@@ -11,37 +11,37 @@ export default function Navbar() {
   }
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-slate-500">
       <div className="flex-1">
         <Link href="/">
           <div className="btn btn-ghost normal-case text-xl">Home</div>
         </Link>
-      </div>
-      <div className="navbar-start">
-        <div className="dropdown dropdown-hover">
-          <label tabIndex={0} className="btn btn-ghost normal-case">
-            Information
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <Link href="/pokemon">
-              <button className="btn btn-ghost normal-case">Pokemon</button>
+        <div className="navbar-start">
+          <div className="dropdown dropdown-hover bg-blue">
+            <label tabIndex={0} className="btn btn-ghost normal-case">
+              Information
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-gray-500 rounded-box w-52"
+            >
+              <Link href="/pokemon">
+                <button className="btn btn-ghost normal-case">Pokemon</button>
+              </Link>
+              <Link href="/pokemon/abilities">
+                <button className="btn btn-ghost normal-case">Abilities</button>
+              </Link>
+              <Link href="/pokemon/types">
+                <button className="btn btn-ghost normal-case">Types</button>
+              </Link>
+            </ul>
+          </div>
+          {login.loggedIn ? (
+            <Link href="/teams">
+              <div className="btn btn-ghost normal-case">Teams</div>
             </Link>
-            <Link href="/pokemon/abilities">
-              <button className="btn btn-ghost normal-case">Abilities</button>
-            </Link>
-            <Link href="/pokemon/types">
-              <button className="btn btn-ghost normal-case">Types</button>
-            </Link>
-          </ul>
+          ) : null}
         </div>
-        {login.loggedIn ? (
-          <Link href="/teams">
-            <div className="btn btn-ghost normal-case">Teams</div>
-          </Link>
-        ) : null}
       </div>
       <div className="flex-none gap-2">
         {/* <div className="form-control">

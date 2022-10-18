@@ -23,6 +23,7 @@ export async function getServerSideProps(context) {
     select: {
       id_: true,
       abilities: true,
+      forms: true,
       name: true,
       types: true,
       sprites: true,
@@ -38,6 +39,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Pokemon({ pokemon }) {
+  console.log(pokemon);
   return (
     <>
       <div className="card flex flex-col justify-center">

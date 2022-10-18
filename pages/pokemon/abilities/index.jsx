@@ -23,8 +23,10 @@ export default function Abilities({ abilities }) {
       <div className="overflow-y-auto">
         <table className="table-auto table-compact m-3">
           <thead className="bg-slate-400">
-            <th className="border-2 border-black">Name</th>
-            <th className="border-2 border-black">Effect</th>
+            <tr>
+              <th className="border-2 border-black">Name</th>
+              <th className="border-2 border-black">Effect</th>
+            </tr>
           </thead>
           <tbody>
             {abilities.map((ability, idx) => {
@@ -40,7 +42,9 @@ export default function Abilities({ abilities }) {
                       {ability.name.split('-').join(' ')}
                     </Link>
                   </td>
-                  <td className="overflow-auto border-2 border-black">{flavorText.effect || flavorText}</td>
+                  <td className="overflow-auto border-2 border-black">
+                    {flavorText.effect || flavorText}
+                  </td>
                 </tr>
               );
             })}
