@@ -39,7 +39,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function Pokemon({ pokemon }) {
-
   return (
     <>
       <div className="card flex flex-col justify-center">
