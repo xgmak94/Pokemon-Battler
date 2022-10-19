@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 require('dotenv').config();
 
-mongoose.connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.NEXT_PUBLIC_MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const PokemonSchema = mongoose.Schema({
   id: {

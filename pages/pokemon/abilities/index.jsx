@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import prisma from '../../../utils/ConnectPrisma.js';
 
@@ -16,10 +17,33 @@ export async function getServerSideProps() {
 }
 
 export default function Abilities({ abilities }) {
-  console.log(abilities);
+  const [nameFilter, setNameFilter] = useState('');
+
+  let filteredAbilities = abilities.filter((ability) => {
+    if (ability.name.includes(nameFilter)) {
+      return true;
+    }
+    return false;
+  });
+
+  function handleChange(e) {
+    if (e.target.value.length >= 2) {
+      setNameFilter(e.target.value);
+    } else {
+      setNameFilter('');
+    }
+  }
 
   return (
     <>
+      <div className="flex justify-center m-3">
+        <input
+          className="h-1/6 rounded-full text-center text-4xl"
+          type="text"
+          placeholder="Search for an ability..."
+          onChange={(e) => handleChange(e)}
+        />
+      </div>
       <div className="overflow-y-auto">
         <table className="table-auto table-compact m-3">
           <thead className="bg-slate-400">
@@ -29,7 +53,7 @@ export default function Abilities({ abilities }) {
             </tr>
           </thead>
           <tbody>
-            {abilities.map((ability, idx) => {
+            {filteredAbilities.map((ability, idx) => {
               let flavorText =
                 ability.effect_entries.find((entry) => {
                   return entry.language.name === 'en';

@@ -11,8 +11,35 @@ export const config = {
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const pokemon = await prisma.pokemons.findMany({ take: parseInt(req.query.limit) });
-
+    const pokemon = await prisma.pokemons.findMany({
+      where: {
+        id_: {
+          gt: parseInt(req.query.offset),
+        },
+      },
+      take: parseInt(req.query.limit),
+      orderBy: {
+        id_: 'asc',
+      },
+      select: {
+        id_: true,
+        name: true,
+        types: true,
+        sprites: {
+          select: {
+            other: {
+              select: {
+                official_artwork: {
+                  select: {
+                    front_default: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
     res.send(pokemon);
   }
 }

@@ -83,11 +83,11 @@ addAll = async function (limit, offset) {
 };
 
 // addAll(count.GEN_1, 0); // 1-151
-// addAll(count.GEN_2 - count.GEN_1, count.GEN_1); // 152-251
+addAll(count.GEN_2 - count.GEN_1, count.GEN_1); // 152-251
 // addAll(count.GEN_3 - count.GEN_2, count.GEN_2); // 252-386
 // addAll(count.GEN_4 - count.GEN_3, count.GEN_3); // 387-493
 // addAll(count.GEN_5 - count.GEN_4, count.GEN_4); // 494-649
 // addAll(count.GEN_6 - count.GEN_5, count.GEN_5); // 650-721
-addAll(count.GEN_7 - count.GEN_6, count.GEN_6); // 722-809
+// addAll(count.GEN_7 - count.GEN_6, count.GEN_6); // 722-809
 // addAll(count.GEN_8 - count.GEN_7, count.GEN_7); // 810-905
 
