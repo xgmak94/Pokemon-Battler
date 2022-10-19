@@ -16,13 +16,17 @@ export async function getServerSideProps() {
 }
 
 export default function Type({ types }) {
-  console.log(types);
+
   return (
     <>
       <div className="grid grid-col-[16]">
         <div className="flex flex-row m-3">
           {types.map((type) => {
-            return <div className="m-1">{type.name}</div>;
+            return (
+              <div key={type.name} className="m-1">
+                {type.name}
+              </div>
+            );
           })}
         </div>
       </div>
