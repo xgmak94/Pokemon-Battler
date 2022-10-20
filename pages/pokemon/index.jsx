@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useId } from 'react';
 
-import {numPokemon, typeColors} from '../../constants';
+import { numPokemon, typeColors } from '../../constants';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -56,6 +56,8 @@ export async function getServerSideProps({ req }) {
 export default function Pokemon({ pokemon, types }) {
   const [allPokemon, setAllPokemon] = useState(pokemon);
 
+  const [loading, setLoading] = useState(false);
+
   const [search, setSearch] = useState();
   const [nameFilter, setNameFilter] = useState('');
   const [typeFilters, setTypeFilters] = useState([]);
@@ -101,6 +103,7 @@ export default function Pokemon({ pokemon, types }) {
   }
 
   async function loadMorePokemon() {
+    setLoading(true);
     let more = await axios.get('/api/pokemon', {
       params: { offset: allPokemon.length, limit: numPokemon[allPokemon.length] },
     });
@@ -108,6 +111,7 @@ export default function Pokemon({ pokemon, types }) {
     setAllPokemon((prev) => {
       return [...prev, ...more.data];
     });
+    setLoading(false);
   }
 
   return (
@@ -140,7 +144,7 @@ export default function Pokemon({ pokemon, types }) {
             className="flex justify-center btn m-3 w-[90%] rounded-full"
             onClick={(e) => loadMorePokemon()}
           >
-            Load more
+            {!loading ? 'Load more' : 'Loading...'}
           </button>
         </div>
       ) : null}
@@ -171,4 +175,3 @@ const colorStyles = {
     };
   },
 };
-
