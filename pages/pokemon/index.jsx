@@ -9,7 +9,6 @@ import axios from 'axios';
 
 import DisplayPokemon from '../../components/DisplayPokemon';
 
-import { PokemonContext } from '../../contexts/PokemonContext';
 import prisma from './../../utils/ConnectPrisma.js';
 
 export async function getServerSideProps({ req }) {
@@ -140,12 +139,16 @@ export default function Pokemon({ pokemon, types }) {
       <DisplayPokemon displayPokemon={filteredPokemon} />
       {allPokemon.length < 905 ? (
         <div className="flex justify-center">
-          <button
-            className="flex justify-center btn m-3 w-[90%] rounded-full"
-            onClick={(e) => loadMorePokemon()}
-          >
-            {!loading ? 'Load more' : 'Loading...'}
-          </button>
+          {!loading ? (
+            <button
+              className="flex justify-center btn m-3 w-[90%] rounded-full"
+              onClick={(e) => loadMorePokemon()}
+            >
+              Load More
+            </button>
+          ) : (
+            <button className="flex justify-center btn m-3 w-[90%] rounded-full">Loading...</button>
+          )}
         </div>
       ) : null}
     </>

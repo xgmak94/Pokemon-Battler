@@ -1,15 +1,12 @@
-import { useContext } from 'react';
 import Link from 'next/link';
-import { LoginContext } from '../contexts/LoginContext';
+import Image from 'next/image';
+
+import { useSession } from 'next-auth/react';
 
 export default function Navbar() {
-  const login = useContext(LoginContext);
+  const session = useSession();
 
-  function handleLogout() {
-    login.setAccountInfo({});
-    login.setLoggedIn(false);
-  }
-
+  console.log(session);
   return (
     <div className="navbar bg-slate-500">
       <div className="flex-1">
@@ -23,7 +20,7 @@ export default function Navbar() {
             </label>
             <ul
               tabIndex={0}
-              className="dropdown-content menu p-2 shadow bg-gray-500 rounded-box w-52"
+              className="dropdown-content menu p-2 shadow bg-gray-700 rounded-box w-52"
             >
               <Link href="/pokemon">
                 <button className="btn btn-ghost normal-case">Pokemon</button>
@@ -36,7 +33,7 @@ export default function Navbar() {
               </Link>
             </ul>
           </div>
-          {login.loggedIn ? (
+          {session.status === 'authenticated' ? (
             <Link href="/teams">
               <div className="btn btn-ghost normal-case">Teams</div>
             </Link>
@@ -47,23 +44,24 @@ export default function Navbar() {
         {/* <div className="form-control">
           <input type="text" placeholder="Search" className="input input-bordered" />
         </div> */}
-        <div className="dropdown dropdown-end">
-          {login.loggedIn ? (
+        <div className="dropdown dropdown-hover dropdown-end bg-blue">
+          {session.status === 'authenticated' ? (
             <>
               <label tabIndex={0} className="btn btn-ghost avatar normal-case">
-                {login.accountInfo.username}
+                {session.data.user.name}
               </label>
               <ul
                 tabIndex={0}
-                className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+                className="dropdown-content menu p-2 shadow bg-gray-700 rounded-box w-52"
               >
-                <button>Profile</button>
-                <button>Settings</button>
-                <button onClick={(e) => handleLogout()}>Logout</button>
+                <button className="btn btn-ghost normal-case">Profile</button>
+                <Link href="/api/auth/signout">
+                  <button className="btn btn-ghost normal-case">Logout</button>
+                </Link>
               </ul>
             </>
           ) : (
-            <Link href="/account/login">
+            <Link href="/api/auth/signin">
               <div className="btn btn-ghost normal-case">Login</div>
             </Link>
           )}

@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { PokemonContext } from '../../contexts/PokemonContext';
-
 import TypeContainer from '../../components/PokemonInformation/types/TypeContainer';
 import AbilityContainer from '../../components/PokemonInformation/abilities/AbilityContainer';
 import MoveCollapse from '../../components/PokemonInformation/moves/MoveCollapse';

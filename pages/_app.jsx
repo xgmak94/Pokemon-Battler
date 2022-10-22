@@ -4,9 +4,6 @@ import Head from 'next/head';
 
 import Navbar from '../components/Navbar';
 
-import { LoginProvider } from '../contexts/LoginContext';
-import { PokemonProvider } from '../contexts/PokemonContext';
-
 export default function MyApp({ Component, pageProps, session, pokemon }) {
   return (
     <>
@@ -14,12 +11,10 @@ export default function MyApp({ Component, pageProps, session, pokemon }) {
         <title>Pokemon battle</title>
         <meta property="og:title" content="My page title" key="title" />
       </Head>
-      {/* <SessionProvider session={session}> */}
-        <LoginProvider>
-          <Navbar />
-          <Component {...pageProps} />
-        </LoginProvider>
-      {/* </SessionProvider> */}
+      <SessionProvider session={session}>
+        <Navbar />
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   );
 }
