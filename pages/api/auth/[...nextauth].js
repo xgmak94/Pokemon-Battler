@@ -9,6 +9,7 @@ import prisma from '../../../utils/ConnectPrisma';
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
+  site: process.env.NEXTAUTH_URL,
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
