@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { PokemonContext } from '../../../contexts/PokemonContext';
 
 import TypeLabel from '../../../components/PokemonInformation/types/TypeLabel';
 import MoveCollapse from '../../../components/PokemonInformation/moves/MoveCollapse';
@@ -58,7 +57,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function Type({ type, pokemonWithType, movesArr }) {
-
   return (
     <>
       <div className="flex flex-col justify-center m-3">

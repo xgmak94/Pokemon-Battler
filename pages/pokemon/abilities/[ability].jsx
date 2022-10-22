@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
-import { PokemonContext } from '../../../contexts/PokemonContext';
 
 import PokemonCollapse from '../../../components/PokemonCollapse';
 import prisma from './../../../utils/ConnectPrisma.js';
@@ -52,7 +51,6 @@ export async function getServerSideProps(context) {
 export default function Ability({ ability, pokemonWithAbility }) {
   let flavorText = ability.effect_entries.find((entry) => entry.language.name === 'en') || `Cannot find data on ${ability.name}`;
 
-  console.log(ability);
   return (
     <>
       <div className="flex flex-col justify-center m-3">
