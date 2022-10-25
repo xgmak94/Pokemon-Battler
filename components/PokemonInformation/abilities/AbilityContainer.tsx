@@ -1,4 +1,4 @@
-import AbilityLabel from './AbilityLabel.jsx';
+import AbilityLabel from './AbilityLabel';
 
 export default function TypeContainer({ abilities }) {
   return (

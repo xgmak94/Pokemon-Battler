@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import TypeContainer from '../components/PokemonInformation/types/TypeContainer';
+import TypeContainer from './PokemonInformation/types/TypeContainer';
 
 export default function DisplayPokemon({ displayPokemon }) {
   return (

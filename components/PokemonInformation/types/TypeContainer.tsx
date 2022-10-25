@@ -1,4 +1,4 @@
-import TypeLabel from './TypeLabel.jsx';
+import TypeLabel from './TypeLabel';
 
 export default function TypeContainer({ types }) {
   return (

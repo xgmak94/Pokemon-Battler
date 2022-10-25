@@ -8,7 +8,7 @@ import AbilityContainer from '../../components/PokemonInformation/abilities/Abil
 import MoveCollapse from '../../components/PokemonInformation/moves/MoveCollapse';
 
 import axios from 'axios';
-import prisma from './../../utils/ConnectPrisma.js';
+import prisma from '../../utils/ConnectPrisma.js';
 
 export async function getServerSideProps(context) {
   const pokemon = await prisma.pokemons.findFirst({

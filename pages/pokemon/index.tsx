@@ -1,17 +1,16 @@
-import { useState, useEffect, useContext, useId } from 'react';
+import { useState } from 'react';
 
 import { numPokemon, typeColors } from '../../constants';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import Select from 'react-select/';
 import axios from 'axios';
 
 import DisplayPokemon from '../../components/DisplayPokemon';
 
-import prisma from './../../utils/ConnectPrisma.js';
+import prisma from '../../utils/ConnectPrisma.js';
+import { GetServerSideProps } from 'next';
 
-export async function getServerSideProps({ req }) {
+export const getServerSideProps: GetServerSideProps = async () => {
   const pokemon = await prisma.pokemons.findMany({
     orderBy: {
       id_: 'asc',
@@ -50,7 +49,7 @@ export async function getServerSideProps({ req }) {
       types,
     },
   };
-}
+};
 
 export default function Pokemon({ pokemon, types }) {
   const [allPokemon, setAllPokemon] = useState(pokemon);

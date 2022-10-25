@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useRouter } from 'next/router';
 
 import PokemonCollapse from '../../../components/PokemonCollapse';
-import prisma from './../../../utils/ConnectPrisma.js';
+import prisma from '../../../utils/ConnectPrisma.js';
 
 export async function getServerSideProps(context) {
   const ability = await prisma.abilities.findFirst({
