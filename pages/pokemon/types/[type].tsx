@@ -1,21 +1,17 @@
-import { useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 
 import TypeLabel from '../../../components/PokemonInformation/types/TypeLabel';
-import MoveCollapse from '../../../components/PokemonInformation/moves/MoveCollapse';
-import DisplayPokemon from '../../../components/DisplayPokemon';
 import PokemonCollapse from '../../../components/PokemonCollapse';
 
-import axios from 'axios';
-import prisma from './../../../utils/ConnectPrisma.js';
+import prisma from '../../../utils/ConnectPrisma.js';
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = await prisma.types.findFirst({
     orderBy: {
       id_: 'asc',
     },
     where: {
-      name: context.query.type,
+      name: context.query.type as string,
     },
   });
 
@@ -54,7 +50,7 @@ export async function getServerSideProps(context) {
       pokemonWithType,
     },
   };
-}
+};
 
 export default function Type({ type, pokemonWithType, movesArr }) {
   return (
@@ -63,7 +59,6 @@ export default function Type({ type, pokemonWithType, movesArr }) {
         <div className="flex justify-center my-3">
           <TypeLabel type={type.name} />
         </div>
-        {/* <MoveCollapse text="See moves" moveData={moveData} setMoveData={setMoveData} /> */}
         <PokemonCollapse text="See Pokemon" displayPokemon={pokemonWithType} />
       </div>
     </>

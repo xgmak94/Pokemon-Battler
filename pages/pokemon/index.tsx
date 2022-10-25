@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { GetServerSideProps } from 'next';
 
 import { numPokemon, typeColors } from '../../constants';
 
@@ -8,7 +9,6 @@ import axios from 'axios';
 import DisplayPokemon from '../../components/DisplayPokemon';
 
 import prisma from '../../utils/ConnectPrisma.js';
-import { GetServerSideProps } from 'next';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const pokemon = await prisma.pokemons.findMany({
@@ -41,6 +41,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
       id_: 'asc',
     },
     take: 18,
+    select: {
+      id_: true,
+      name: true,
+    },
   });
 
   return {
@@ -51,12 +55,41 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default function Pokemon({ pokemon, types }) {
+interface Pokemon {
+  id_: Number;
+  name: String;
+  sprites: {
+    other: {
+      official_artwork: {
+        front_default: String;
+      };
+    };
+  };
+  types: Array<Type>;
+}
+
+interface Type {
+  slot: Number;
+  type: {
+    name: String;
+    url: String;
+  };
+}
+
+interface Types {
+  name: String;
+}
+
+interface Props {
+  pokemon: Array<Pokemon>;
+  types: Array<Types>;
+}
+
+export default function Pokemon({ pokemon, types }: Props) {
   const [allPokemon, setAllPokemon] = useState(pokemon);
 
   const [loading, setLoading] = useState(false);
 
-  const [search, setSearch] = useState();
   const [nameFilter, setNameFilter] = useState('');
   const [typeFilters, setTypeFilters] = useState([]);
 
@@ -76,16 +109,15 @@ export default function Pokemon({ pokemon, types }) {
     return false;
   });
 
-  const options = types
-    .map((type) => {
-      return {
-        value: type.name,
-        label: type.name[0].toUpperCase() + type.name.slice(1),
-      };
-    })
-    .sort((a, b) => a.value.localeCompare(b.value));
+  const options = types.map((type) => {
+    return {
+      value: type.name,
+      label: type.name[0].toUpperCase() + type.name.slice(1),
+    };
+  });
+  // options.sort((a, b) => a.value.localeCompare(b.value));
 
-  function handleNameFilter(e) {
+  function handleNameFilter(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value.length >= 2) {
       setNameFilter(e.target.value);
     } else {
@@ -93,8 +125,8 @@ export default function Pokemon({ pokemon, types }) {
     }
   }
 
-  function handleFilter(inputValue, actionMeta) {
-    let typeNames = inputValue.map((type) => {
+  function handleFilter(inputValue: any[], _actionMeta: any) {
+    let typeNames = inputValue.map((type: { value: any }) => {
       return type.value;
     });
     setTypeFilters(typeNames);
@@ -141,7 +173,7 @@ export default function Pokemon({ pokemon, types }) {
           {!loading ? (
             <button
               className="flex justify-center btn m-3 w-[90%] rounded-full"
-              onClick={(e) => loadMorePokemon()}
+              onClick={(_e) => loadMorePokemon()}
             >
               Load More
             </button>
@@ -155,21 +187,21 @@ export default function Pokemon({ pokemon, types }) {
 }
 
 const colorStyles = {
-  option: (styles, { data }) => {
+  option: (styles: any, { data }: any) => {
     const color = typeColors[data.value];
     return {
       ...styles,
       backgroundColor: color,
     };
   },
-  multiValue: (styles, { data }) => {
+  multiValue: (styles: any, { data }: any) => {
     const color = typeColors[data.value];
     return {
       ...styles,
       backgroundColor: color,
     };
   },
-  multiValueLabel: (styles, { data }) => {
+  multiValueLabel: (styles: any, { data }: any) => {
     const color = typeColors[data.value];
     return {
       ...styles,

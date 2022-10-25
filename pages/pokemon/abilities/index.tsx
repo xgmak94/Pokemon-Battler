@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import prisma from '../../../utils/ConnectPrisma.js';
+import { AbilitiesEffectEntries } from '@prisma/client';
 
 export async function getServerSideProps() {
   const abilities = await prisma.abilities.findMany({
     orderBy: {
       name: 'asc',
+    },
+    select: {
+      effect_entries: true,
+      name: true,
     },
   });
 
@@ -16,7 +21,25 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Abilities({ abilities }) {
+interface Props {
+  abilities: Array<Abilities>;
+}
+
+interface Abilities {
+  name: string;
+  effect_entries: Array<Effect_Entry>;
+}
+
+interface Effect_Entry {
+  effect: string;
+  language: {
+    name: string;
+    url: string;
+  };
+  short_effect: string;
+}
+
+export default function Abilities({ abilities }: Props) {
   const [nameFilter, setNameFilter] = useState('');
 
   let filteredAbilities = abilities.filter((ability) => {
@@ -54,10 +77,9 @@ export default function Abilities({ abilities }) {
           </thead>
           <tbody>
             {filteredAbilities.map((ability, idx) => {
-              let flavorText =
-                ability.effect_entries.find((entry) => {
-                  return entry.language.name === 'en';
-                }) || `Cannot find data on ${ability.name}`;
+              let flavorText = ability.effect_entries.find((entry) => {
+                return entry.language.name === 'en';
+              });
 
               return (
                 <tr key={ability.name} className="odd:bg-slate-500 even:bg-slate-700">
@@ -67,7 +89,7 @@ export default function Abilities({ abilities }) {
                     </Link>
                   </td>
                   <td className="overflow-auto border-2 border-black">
-                    {flavorText.effect || flavorText}
+                    {flavorText ? flavorText.effect : `Could not find data on ${ability.name}`}
                   </td>
                 </tr>
               );

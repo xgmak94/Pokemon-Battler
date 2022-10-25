@@ -1,5 +1,4 @@
-import PokemonModel from '../../models/PokemonModel';
-import connectMongo from '../../utils/ConnectMongo';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 import prisma from '../../utils/ConnectPrisma';
 
@@ -9,15 +8,15 @@ export const config = {
   },
 };
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const pokemon = await prisma.pokemons.findMany({
       where: {
         id_: {
-          gt: parseInt(req.query.offset),
+          gt: parseInt(req.query.offset as string),
         },
       },
-      take: parseInt(req.query.limit),
+      take: parseInt(req.query.limit as string),
       orderBy: {
         id_: 'asc',
       },
@@ -43,20 +42,3 @@ export default async function handler(req, res) {
     res.send(pokemon);
   }
 }
-
-// export default async function handler(req, res) {
-//   await connectMongo();
-
-//   if (req.method === 'GET') {
-//     let limit = req.query.limit || 151;
-//     let offset = req.query.offset || 0;
-
-//     let info = await PokemonModel.find({}, 'name id abilities sprites stats types')
-//       .sort({ id: 1 })
-//       .skip(offset)
-//       .limit(limit)
-//       .exec();
-
-//     res.status(200).send(info);
-//   }
-// }

@@ -6,6 +6,11 @@ export async function getServerSideProps() {
       id_: 'asc',
     },
     take: 16,
+    select: {
+      damage_relations: true,
+      id_: true,
+      name: true,
+    },
   });
 
   return {
@@ -15,8 +20,17 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Type({ types }) {
+interface Props {
+  types: Array<Types>;
+}
 
+interface Types {
+  id_: Number;
+  name: string;
+}
+
+export default function Type({ types }: Props) {
+  console.log(types);
   return (
     <>
       <div className="grid grid-col-[16]">

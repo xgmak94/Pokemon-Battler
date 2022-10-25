@@ -1,13 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import TypeContainer from '../../components/PokemonInformation/types/TypeContainer';
 import AbilityContainer from '../../components/PokemonInformation/abilities/AbilityContainer';
-import MoveCollapse from '../../components/PokemonInformation/moves/MoveCollapse';
 
-import axios from 'axios';
 import prisma from '../../utils/ConnectPrisma.js';
 
 export async function getServerSideProps(context) {
@@ -24,8 +19,20 @@ export async function getServerSideProps(context) {
       forms: true,
       name: true,
       types: true,
-      sprites: true,
       moves: true,
+      sprites: {
+        select: {
+          other: {
+            select: {
+              official_artwork: {
+                select: {
+                  front_default: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
 
@@ -36,7 +43,33 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Pokemon({ pokemon }) {
+interface Props {
+  pokemon: Pokemon;
+}
+
+interface Pokemon {
+  abilities: any;
+  id_: Number;
+  name: String;
+  sprites: {
+    other: {
+      official_artwork: {
+        front_default: string;
+      };
+    };
+  };
+  types: Array<Type>;
+}
+
+interface Type {
+  slot: Number;
+  type: {
+    name: String;
+    url: String;
+  };
+}
+
+export default function Pokemon({ pokemon }: Props) {
   return (
     <>
       <div className="card flex flex-col justify-center">
@@ -50,7 +83,7 @@ export default function Pokemon({ pokemon }) {
         </div>
         <div>
           <h2 className="card-title capitalize justify-center">
-            <div>#{pokemon.id_}</div>
+            <div>{`#${pokemon.id_}`}</div>
             <div>{pokemon.name.split('-').join(' ')}</div>
           </h2>
           <TypeContainer types={pokemon.types} />
